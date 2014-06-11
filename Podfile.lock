@@ -1,0 +1,13 @@
+PODS:
+  - AVHexColor (1.2.0)
+  - TTTAttributedLabel (1.10.0)
+
+DEPENDENCIES:
+  - AVHexColor (~> 1.2.0)
+  - TTTAttributedLabel
+
+SPEC CHECKSUMS:
+  AVHexColor: b47099552819a98dc58d7931f0f43eb6e2308342
+  TTTAttributedLabel: c3a11b538bc7beb4815f156e2ba4b066929e13f9
+
+COCOAPODS: 0.33.1
