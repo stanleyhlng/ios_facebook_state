@@ -11,10 +11,18 @@
 
 @interface LoginViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *panelView;
+@property (weak, nonatomic) IBOutlet UIView *helpView;
 @property (weak, nonatomic) IBOutlet UITextField *loginTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
-- (IBAction)onTap:(id)sender;
+- (IBAction) onTap: (id)sender;
+- (IBAction)onLoginTextField:(id)sender;
+
+- (UIView *) getPaddingView;
+- (void) willShowKeyboard: (NSNotification *)notification;
+- (void) willHideKeyboard: (NSNotification *)notification;
 
 @end
 
@@ -28,6 +36,10 @@
         
         // view: background color
         self.view.backgroundColor = [AVHexColor colorWithHexString: @"#3b5998"];
+    
+        // keyboard
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willShowKeyboard:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willHideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
@@ -49,12 +61,9 @@
     self.passwordTextField.placeholder = @"Password";
     self.passwordTextField.secureTextEntry = YES;
     [self.passwordTextField setFont:[UIFont systemFontOfSize:14]];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    // button: login
+    [self.loginButton setEnabled:NO];
 }
 
 - (IBAction)onTap:(id)sender {
@@ -62,11 +71,80 @@
     [self.view endEditing:YES];
 }
 
-# pragma textfield
+- (IBAction)onLoginTextField:(id)sender {
+    NSLog(@"onLoginTextField");
+}
 
 - (UIView *)getPaddingView {
     return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 45)];
 }
 
+- (CGRect) rightViewRectForBounds: (CGRect)bounds {
+    CGRect rect = bounds;
+    rect.origin.x -= 20;
+    return rect;
+}
+
+- (void) willShowKeyboard: (NSNotification *)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    
+    // Get the animation duration and curve from the notification
+    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration = durationValue.doubleValue;
+    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    UIViewAnimationCurve animationCurve = curveValue.intValue;
+    
+    // Move the view with the same duration and animation curve so that it will match with the keyboard animation
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:(animationCurve << 16)
+                     animations:^{
+                         // view: panel
+                         {
+                             CGRect frame = self.panelView.frame;
+                             frame.origin.y = frame.origin.y - 80;
+                             self.panelView.frame = frame;
+                         }
+                         
+                         // view: help
+                         {
+                             CGRect frame = self.helpView.frame;
+                             frame.origin.y = frame.origin.y - 170;
+                             self.helpView.frame = frame;
+                         }
+                     }
+                     completion:nil];
+}
+
+- (void) willHideKeyboard: (NSNotification *)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    
+    // Get the animation duration and curve from the notification
+    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration = durationValue.doubleValue;
+    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+    UIViewAnimationCurve animationCurve = curveValue.intValue;
+    
+    // Move the view with the same duration and animation curve so that it will match with the keyboard animation
+    [UIView animateWithDuration:animationDuration
+                          delay:0.0
+                        options:(animationCurve << 16)
+                     animations:^{
+                         // view: panel
+                         {
+                             CGRect frame = self.panelView.frame;
+                             frame.origin.y = frame.origin.y + 80;
+                             self.panelView.frame = frame;
+                         }
+                         
+                         // view: help
+                         {
+                             CGRect frame = self.helpView.frame;
+                             frame.origin.y = frame.origin.y + 170;
+                             self.helpView.frame = frame;
+                         }
+                     }
+                     completion:nil];
+}
 
 @end
