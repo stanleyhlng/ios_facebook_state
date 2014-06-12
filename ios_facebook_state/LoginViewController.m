@@ -17,12 +17,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
-- (IBAction) onTap: (id)sender;
-- (IBAction)onLoginTextField:(id)sender;
+- (IBAction)onTap:(id)sender;
+- (IBAction)onLoginButton:(id)sender;
 
-- (UIView *) getPaddingView;
-- (void) willShowKeyboard: (NSNotification *)notification;
-- (void) willHideKeyboard: (NSNotification *)notification;
+- (UIView *)getPaddingView;
+- (void)willShowKeyboard:(NSNotification *)notification;
+- (void)willHideKeyboard:(NSNotification *)notification;
+- (void)textFieldDidChange:(UITextField *)theTextField;
+- (void)callbackLoginButton;
 
 @end
 
@@ -54,13 +56,18 @@
     self.loginTextField.leftViewMode = UITextFieldViewModeAlways;
     self.loginTextField.placeholder = @"Email or phone number";
     [self.loginTextField setFont:[UIFont systemFontOfSize:14]];
-
+    self.loginTextField.delegate = self;
+    [self.loginTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
     // textfield: password
     self.passwordTextField.leftView = [self getPaddingView];
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     self.passwordTextField.placeholder = @"Password";
     self.passwordTextField.secureTextEntry = YES;
+    [self.passwordTextField setAutocorrectionType:UITextAutocorrectionTypeNo];
     [self.passwordTextField setFont:[UIFont systemFontOfSize:14]];
+    self.passwordTextField.delegate = self;
+    [self.passwordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     // button: login
     [self.loginButton setEnabled:NO];
@@ -71,18 +78,18 @@
     [self.view endEditing:YES];
 }
 
-- (IBAction)onLoginTextField:(id)sender {
-    NSLog(@"onLoginTextField");
+- (IBAction)onLoginButton:(id)sender {
+    NSLog(@"onLoginButton");
+    
+    // button: login
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"Logging In"];
+    [self.loginButton setAttributedTitle:title forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(callbackLoginButton) withObject:nil afterDelay:2];
 }
 
 - (UIView *)getPaddingView {
     return [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 45)];
-}
-
-- (CGRect) rightViewRectForBounds: (CGRect)bounds {
-    CGRect rect = bounds;
-    rect.origin.x -= 20;
-    return rect;
 }
 
 - (void) willShowKeyboard: (NSNotification *)notification {
@@ -145,6 +152,45 @@
                          }
                      }
                      completion:nil];
+}
+
+- (void)textFieldDidChange:(UITextField *)theTextField {
+    NSLog(@"text changed: %@", theTextField.text);
+    
+    if (self.loginTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
+        [self.loginButton setEnabled:NO];
+    }
+    else {
+        [self.loginButton setEnabled:YES];
+    }
+}
+
+- (void)callbackLoginButton {
+    NSLog(@"callbackLoginButton");
+    
+    // button: login
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"Log In"];
+    [self.loginButton setAttributedTitle:title forState:UIControlStateNormal];
+}
+
+# pragma textFieldDelegrate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    NSLog(@"textFieldShouldBeginEditing");
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    NSLog(@"textFieldDidBeginEditing");
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    NSLog(@"textFieldShouldEndEditing");
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSLog(@"textFieldDidEndEditing");
 }
 
 @end

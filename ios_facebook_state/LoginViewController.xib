@@ -8,7 +8,7 @@
             <connections>
                 <outlet property="helpView" destination="ajT-Q3-tip" id="Fhc-TV-MPo"/>
                 <outlet property="loginButton" destination="Fhn-NG-GFR" id="aZa-Gp-bo0"/>
-                <outlet property="loginTextField" destination="YTn-xS-hE3" id="7yY-mE-0xM"/>
+                <outlet property="loginTextField" destination="YTn-xS-hE3" id="mgm-8B-HBf"/>
                 <outlet property="panelView" destination="ill-Gb-gvK" id="21K-VJ-b82"/>
                 <outlet property="passwordTextField" destination="QZi-5Y-V8K" id="kXs-VP-DRY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -41,7 +41,7 @@
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                            <font key="NSOriginalFont" size="16" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -50,16 +50,41 @@
                                 <attributedString key="attributedTitle">
                                     <fragment content="Log In">
                                         <attributes>
-                                            <color key="NSColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="NSColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                             <font key="NSFont" size="16" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                             </state>
+                            <state key="selected">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="Log In">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <state key="highlighted">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="Log In">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <connections>
+                                <action selector="onLoginButton:" destination="-1" eventType="touchUpInside" id="xdS-pe-N71"/>
+                            </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YTn-xS-hE3">
-                            <rect key="frame" x="0.0" y="110" width="291" height="45"/>
+                            <rect key="frame" x="0.0" y="111" width="291" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <attributedString key="attributedText"/>
