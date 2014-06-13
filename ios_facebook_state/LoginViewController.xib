@@ -6,9 +6,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="continueActivityIndicatorView" destination="rvH-Bn-dcb" id="wxK-3f-UHq"/>
                 <outlet property="helpView" destination="ajT-Q3-tip" id="Fhc-TV-MPo"/>
-                <outlet property="loadingActivityIndicatorView" destination="rvH-Bn-dcb" id="xyh-Tp-k2Q"/>
                 <outlet property="loadingPanelView" destination="jso-p3-kFW" id="u09-tQ-cpA"/>
+                <outlet property="loginActivityIndicatorView" destination="rvH-Bn-dcb" id="0iL-yR-XUl"/>
                 <outlet property="loginButton" destination="Fhn-NG-GFR" id="aZa-Gp-bo0"/>
                 <outlet property="loginPanelView" destination="ill-Gb-gvK" id="IWZ-Ul-0hf"/>
                 <outlet property="loginTextField" destination="YTn-xS-hE3" id="mgm-8B-HBf"/>
@@ -45,7 +46,7 @@
                     <rect key="frame" x="14" y="213" width="291" height="142"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ApC-Y4-oHE">
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ApC-Y4-oHE">
                             <rect key="frame" x="0.0" y="49" width="291" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.31372550129999999" green="0.4156863093" blue="0.62745100259999997" alpha="1" colorSpace="deviceRGB"/>
@@ -66,32 +67,16 @@
                                         <attributes>
                                             <color key="NSColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                             <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                             </state>
                             <state key="selected">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Log In">
-                                        <attributes>
-                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <attributedString key="attributedTitle"/>
                             </state>
                             <state key="highlighted">
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Log In">
-                                        <attributes>
-                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <attributedString key="attributedTitle"/>
                             </state>
                             <connections>
                                 <action selector="onContinueButton:" destination="-1" eventType="touchUpInside" id="OMO-dK-wRu"/>
@@ -132,6 +117,10 @@
                                 </attributedString>
                             </state>
                         </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-Bn-dcb">
+                            <rect key="frame" x="251" y="61" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
                     </subviews>
                 </view>
                 <view hidden="YES" contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ill-Gb-gvK">
@@ -190,22 +179,22 @@
                                 <action selector="onLoginButton:" destination="-1" eventType="touchUpInside" id="xdS-pe-N71"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YTn-xS-hE3">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" adjustsFontSizeToFit="NO" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YTn-xS-hE3">
                             <rect key="frame" x="0.0" y="1" width="291" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <attributedString key="attributedText"/>
                             <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QZi-5Y-V8K">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" adjustsFontSizeToFit="NO" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QZi-5Y-V8K">
                             <rect key="frame" x="0.0" y="45" width="291" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <attributedString key="attributedText"/>
                             <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
                         </textField>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="rvH-Bn-dcb">
-                            <rect key="frame" x="258" y="110" width="20" height="20"/>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ktp-85-mSb">
+                            <rect key="frame" x="135" y="61" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                     </subviews>
@@ -243,6 +232,9 @@
                                     </fragment>
                                 </attributedString>
                             </state>
+                            <connections>
+                                <action selector="onForgotPasswordButton:" destination="-1" eventType="touchUpInside" id="56l-sU-l4F"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQB-cw-lAd">
                             <rect key="frame" x="192" y="45" width="76" height="30"/>
@@ -259,6 +251,9 @@
                                     </fragment>
                                 </attributedString>
                             </state>
+                            <connections>
+                                <action selector="onHelpCenterButton:" destination="-1" eventType="touchUpInside" id="gUM-gd-PuR"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wQl-Ji-gNF" userLabel="Button - ・">
                             <rect key="frame" x="173" y="45" width="21" height="30"/>

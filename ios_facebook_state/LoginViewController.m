@@ -19,12 +19,15 @@
 @property (weak, nonatomic) IBOutlet UITextField *loginTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivityIndicatorView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loginActivityIndicatorView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *continueActivityIndicatorView;
 
 - (IBAction)onTap:(id)sender;
 - (IBAction)onNotMeButton:(id)sender;
 - (IBAction)onContinueButton:(id)sender;
 - (IBAction)onLoginButton:(id)sender;
+- (IBAction)onHelpCenterButton:(id)sender;
+- (IBAction)onForgotPasswordButton:(id)sender;
 
 - (UIView *)getPaddingView;
 - (void)willShowKeyboard:(NSNotification *)notification;
@@ -32,6 +35,7 @@
 - (void)textFieldDidChange:(UITextField *)theTextField;
 - (void)callbackLoadingPanelView;
 - (void)callbackLoginButton;
+- (void)callbackContinueButton;
 - (void)launchLoadingViewController;
 - (void)launchFeedViewController;
 
@@ -116,16 +120,29 @@
                   range:NSMakeRange(0, 10)];
     [self.loginButton setAttributedTitle:title forState:UIControlStateNormal];
     
-    // activity indicator view: loading
-    [self.loadingActivityIndicatorView startAnimating];
+    // activity indicator view: login
+    [self.loginActivityIndicatorView startAnimating];
     
     // action
     [self performSelector:@selector(callbackLoginButton) withObject:nil afterDelay:2];
 }
 
+- (IBAction)onHelpCenterButton:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://m.facebook.com/help/iphone-app?ref=iOS"]];
+}
+
+- (IBAction)onForgotPasswordButton:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://m.facebook.com/login/identify?ctx=recover&c&_rdr"]];
+}
+
 - (IBAction)onContinueButton:(id)sender {
     NSLog(@"onContinueButton");
-    [self launchFeedViewController];
+
+    // activity indicator view: continue
+    [self.continueActivityIndicatorView startAnimating];
+    
+    // action
+    [self performSelector:@selector(callbackContinueButton) withObject:nil afterDelay:2];
 }
 
 - (UIView *)getPaddingView {
@@ -242,8 +259,8 @@
                   range:NSMakeRange(0, 6)];
     [self.loginButton setAttributedTitle:title forState:UIControlStateNormal];
     
-    // activity indicator view: loading
-    [self.loadingActivityIndicatorView stopAnimating];
+    // activity indicator view: login
+    [self.loginActivityIndicatorView stopAnimating];
     
     // validate the password
     if ([self.passwordTextField.text isEqualToString:@"password"]) {
@@ -266,6 +283,16 @@
     }
 }
 
+-(void)callbackContinueButton {
+    NSLog(@"callbackContinueButton");
+    
+    // activity indicator view: continue
+    [self.continueActivityIndicatorView stopAnimating];
+
+    // launch feed view controller
+    [self launchFeedViewController];
+}
+
 -(void)launchLoadingViewController {
     NSLog(@"launchLoadingViewController");
     [self performSelector:@selector(callbackLoadingPanelView) withObject:nil afterDelay:2];
@@ -273,6 +300,10 @@
 
 -(void)launchFeedViewController {
     NSLog(@"launchFeedViewController");
+
+    [self.loadingPanelView setHidden:YES];
+    [self.verifyPanelView setHidden:NO];
+    [self.loginPanelView setHidden:YES];
 }
 
 # pragma textFieldDelegrate
