@@ -11,20 +11,29 @@
 
 @interface LoginViewController ()
 
-@property (weak, nonatomic) IBOutlet UIView *panelView;
+@property (weak, nonatomic) IBOutlet UIView *loadingPanelView;
+@property (weak, nonatomic) IBOutlet UIView *verifyPanelView;
+@property (weak, nonatomic) IBOutlet UIView *loginPanelView;
 @property (weak, nonatomic) IBOutlet UIView *helpView;
+@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (weak, nonatomic) IBOutlet UITextField *loginTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivityIndicatorView;
 
 - (IBAction)onTap:(id)sender;
+- (IBAction)onNotMeButton:(id)sender;
+- (IBAction)onContinueButton:(id)sender;
 - (IBAction)onLoginButton:(id)sender;
 
 - (UIView *)getPaddingView;
 - (void)willShowKeyboard:(NSNotification *)notification;
 - (void)willHideKeyboard:(NSNotification *)notification;
 - (void)textFieldDidChange:(UITextField *)theTextField;
+- (void)callbackLoadingPanelView;
 - (void)callbackLoginButton;
+- (void)launchLoadingViewController;
+- (void)launchFeedViewController;
 
 @end
 
@@ -37,11 +46,14 @@
         // Custom initialization
         
         // view: background color
-        self.view.backgroundColor = [AVHexColor colorWithHexString: @"#3b5998"];
+        self.view.backgroundColor = [AVHexColor colorWithHexString: @"#3B5998"];
     
         // keyboard
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willShowKeyboard:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willHideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
+
+        // view: loading panel
+        [self launchLoadingViewController];
     }
     return self;
 }
@@ -78,14 +90,42 @@
     [self.view endEditing:YES];
 }
 
+- (IBAction)onNotMeButton:(id)sender {
+    NSLog(@"onNotMeButton");
+
+    // view: verify panel
+    [self.verifyPanelView setHidden:YES];
+    
+    // view: login panel
+    [self.loginPanelView setHidden:NO];
+}
+
 - (IBAction)onLoginButton:(id)sender {
     NSLog(@"onLoginButton");
     
+    // keyboard
+    [self.view endEditing:YES];
+    
     // button: login
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"Logging In"];
+    [title addAttribute:NSForegroundColorAttributeName
+                  value:[AVHexColor colorWithHexa:@"#FFFFFF"]
+                  range:NSMakeRange(0, 10)];
+    [title addAttribute:NSFontAttributeName
+                  value:[UIFont fontWithName:@"HelveticaNeue" size:16.0]
+                  range:NSMakeRange(0, 10)];
     [self.loginButton setAttributedTitle:title forState:UIControlStateNormal];
     
+    // activity indicator view: loading
+    [self.loadingActivityIndicatorView startAnimating];
+    
+    // action
     [self performSelector:@selector(callbackLoginButton) withObject:nil afterDelay:2];
+}
+
+- (IBAction)onContinueButton:(id)sender {
+    NSLog(@"onContinueButton");
+    [self launchFeedViewController];
 }
 
 - (UIView *)getPaddingView {
@@ -106,11 +146,18 @@
                           delay:0.0
                         options:(animationCurve << 16)
                      animations:^{
-                         // view: panel
+                         // image view: logo
                          {
-                             CGRect frame = self.panelView.frame;
+                             CGRect frame = self.logoImageView.frame;
                              frame.origin.y = frame.origin.y - 80;
-                             self.panelView.frame = frame;
+                             self.logoImageView.frame = frame;
+                         }
+                         
+                         // view: login panel
+                         {
+                             CGRect frame = self.loginPanelView.frame;
+                             frame.origin.y = frame.origin.y - 80;
+                             self.loginPanelView.frame = frame;
                          }
                          
                          // view: help
@@ -137,11 +184,18 @@
                           delay:0.0
                         options:(animationCurve << 16)
                      animations:^{
+                         // image view: logo
+                         {
+                             CGRect frame = self.logoImageView.frame;
+                             frame.origin.y = frame.origin.y + 80;
+                             self.logoImageView.frame = frame;
+                         }
+                         
                          // view: panel
                          {
-                             CGRect frame = self.panelView.frame;
+                             CGRect frame = self.loginPanelView.frame;
                              frame.origin.y = frame.origin.y + 80;
-                             self.panelView.frame = frame;
+                             self.loginPanelView.frame = frame;
                          }
                          
                          // view: help
@@ -165,12 +219,60 @@
     }
 }
 
+- (void)callbackLoadingPanelView {
+    NSLog(@"callbackLoadingPanelView");
+    
+    // view: loading panel
+    [self.loadingPanelView setHidden:YES];
+    
+    // view: verify panel
+    [self.verifyPanelView setHidden:NO];
+}
+
 - (void)callbackLoginButton {
     NSLog(@"callbackLoginButton");
     
     // button: login
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"Log In"];
+    [title addAttribute:NSForegroundColorAttributeName
+                  value:[AVHexColor colorWithHexa:@"#FFFFFF"]
+                  range:NSMakeRange(0, 6)];
+    [title addAttribute:NSFontAttributeName
+                  value:[UIFont fontWithName:@"HelveticaNeue" size:16.0]
+                  range:NSMakeRange(0, 6)];
     [self.loginButton setAttributedTitle:title forState:UIControlStateNormal];
+    
+    // activity indicator view: loading
+    [self.loadingActivityIndicatorView stopAnimating];
+    
+    // validate the password
+    if ([self.passwordTextField.text isEqualToString:@"password"]) {
+
+        // launch feed view controller
+        [self launchFeedViewController];
+
+    }
+    else {
+    
+        // launch alert
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Incorrect Password" message:@"The password you entered is incorrect.  Please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
+        
+        // textfield: password
+        [self.passwordTextField setText:@""];
+        
+        // button: login
+        [self.loginButton setEnabled:NO];
+    }
+}
+
+-(void)launchLoadingViewController {
+    NSLog(@"launchLoadingViewController");
+    [self performSelector:@selector(callbackLoadingPanelView) withObject:nil afterDelay:2];
+}
+
+-(void)launchFeedViewController {
+    NSLog(@"launchFeedViewController");
 }
 
 # pragma textFieldDelegrate
