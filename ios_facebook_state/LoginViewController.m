@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "FeedViewController.h"
 #import "AVHexColor.h"
 
 @interface LoginViewController ()
@@ -304,6 +305,10 @@
     [self.loadingPanelView setHidden:YES];
     [self.verifyPanelView setHidden:NO];
     [self.loginPanelView setHidden:YES];
+    
+    UIViewController *vc = [[FeedViewController alloc] init];
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve; // Fade
+    [self presentViewController:vc animated:NO completion:nil];
 }
 
 # pragma textFieldDelegrate
