@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "FeedViewController.h"
+#import "MoreViewController.h"
 #import "AVHexColor.h"
 
 @interface LoginViewController ()
@@ -306,9 +307,61 @@
     [self.verifyPanelView setHidden:NO];
     [self.loginPanelView setHidden:YES];
     
-    UIViewController *vc = [[FeedViewController alloc] init];
-    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve; // Fade
-    [self presentViewController:vc animated:NO completion:nil];
+    //UIViewController *vc = [[FeedViewController alloc] init];
+    //vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve; // Fade
+    //[self presentViewController:vc animated:NO completion:nil];
+
+    // Create view controllers
+    
+    UIViewController *feedViewController = [[FeedViewController alloc] init];
+    UINavigationController *feedNavigationController = [[UINavigationController alloc] initWithRootViewController:feedViewController];
+
+    UIViewController *requestsViewController = [[UIViewController alloc] init];
+    [requestsViewController setTitle:@"Requests"];
+    UINavigationController *requestsNavigationController = [[UINavigationController alloc] initWithRootViewController:requestsViewController];
+
+    UIViewController *messengerViewController = [[UIViewController alloc] init];
+    [messengerViewController setTitle:@"Messenger"];
+    UINavigationController *messengerNavigationController = [[UINavigationController alloc] initWithRootViewController:messengerViewController];
+
+    UIViewController *notificationsViewController = [[UIViewController alloc] init];
+    [notificationsViewController setTitle:@"Notifications"];
+    UINavigationController *notificationsNavigationController = [[UINavigationController alloc] initWithRootViewController:notificationsViewController];
+    
+    
+    UIViewController *moreViewController = [[MoreViewController alloc] init];
+    UINavigationController *moreNavigationController = [[UINavigationController alloc] initWithRootViewController:moreViewController];
+
+    // Configure the tab bar controller
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.viewControllers = @[
+                                         feedNavigationController,
+                                         requestsNavigationController,
+                                         messengerNavigationController,
+                                         notificationsNavigationController,
+                                         moreNavigationController
+                                         ];
+    
+    // Configure the tab bar items
+    
+    feedNavigationController.tabBarItem.title = @"News Feed";
+    feedNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-feed"];
+    
+    requestsNavigationController.tabBarItem.title = @"Requests";
+    requestsNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-requests"];
+
+    messengerNavigationController.tabBarItem.title = @"Messenger";
+    messengerNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-messenger"];
+
+    notificationsNavigationController.tabBarItem.title = @"Notifications";
+    notificationsNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-notifications"];
+
+    moreNavigationController.tabBarItem.title = @"More";
+    moreNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-more"];
+    
+    tabBarController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve; // Fade
+    [self presentViewController:tabBarController animated:NO completion:nil];
 }
 
 # pragma textFieldDelegrate
