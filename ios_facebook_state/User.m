@@ -10,12 +10,11 @@
 
 @implementation User
 
-
-
 + (instancetype)sharedInstance
 {
     static User *user = nil;
     static dispatch_once_t onceToken;
+    
     dispatch_once(&onceToken, ^{
         user = [User new];
         
@@ -23,6 +22,7 @@
         user.nameDict = dict;
         
     });
+    
     return user;
 }
 
