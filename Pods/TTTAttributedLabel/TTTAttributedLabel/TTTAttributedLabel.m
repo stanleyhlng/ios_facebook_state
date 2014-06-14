@@ -24,6 +24,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import <Availability.h>
+#import <objc/runtime.h>
 
 #define kTTTLineBreakWordWrapTextWidthScalingFactor (M_PI / M_E)
 
@@ -317,16 +318,37 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
 @dynamic text;
 @synthesize attributedText = _attributedText;
 
-- (instancetype)init {
-    self = [super init];
-    if (!self) {
-        return nil;
-    }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 
-    [self commonInit];
+#ifndef kCFCoreFoundationVersionNumber_iOS_7_0
+#define kCFCoreFoundationVersionNumber_iOS_7_0 847.2
+#endif
 
-    return self;
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_7_0) {
+            Class class = [self class];
+            Class superclass = class_getSuperclass(class);
+
+            NSArray *strings = @[
+                                 NSStringFromSelector(@selector(isAccessibilityElement)),
+                                 NSStringFromSelector(@selector(accessibilityElementCount)),
+                                 NSStringFromSelector(@selector(accessibilityElementAtIndex:)),
+                                 NSStringFromSelector(@selector(indexOfAccessibilityElement:)),
+                                 ];
+
+            for (NSString *string in strings) {
+                SEL selector = NSSelectorFromString(string);
+                IMP superImplementation = class_getMethodImplementation(superclass, selector);
+                Method method = class_getInstanceMethod(class, selector);
+                const char *types = method_getTypeEncoding(method);
+                class_replaceMethod(class, selector, superImplementation, types);
+            }
+        }
+    });
 }
+#endif
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -853,7 +875,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
         CGFloat width = (CGFloat)CTLineGetTypographicBounds((__bridge CTLineRef)line, &ascent, &descent, &leading) ;
         CGRect lineBounds = CGRectMake(rect.origin.x, rect.origin.y, width, ascent + descent + leading) ;
 
-        CGFloat penOffset = (CGFloat)CTLineGetPenOffsetForFlush((CTLineRef)line, flushFactor, rect.size.width);
+        CGFloat penOffset = (CGFloat)CTLineGetPenOffsetForFlush((__bridge CTLineRef)line, flushFactor, rect.size.width);
 
         lineBounds.origin.x += origins[lineIndex].x;
         lineBounds.origin.y += origins[lineIndex].y;
@@ -935,7 +957,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
         lineBounds.origin.x = origins[lineIndex].x;
         lineBounds.origin.y = origins[lineIndex].y;
 
-        CGFloat penOffset = (CGFloat)CTLineGetPenOffsetForFlush((CTLineRef)line, flushFactor, rect.size.width);
+        CGFloat penOffset = (CGFloat)CTLineGetPenOffsetForFlush((__bridge CTLineRef)line, flushFactor, rect.size.width);
 
         for (id glyphRun in (__bridge NSArray *)CTLineGetGlyphRuns((__bridge CTLineRef)line)) {
             NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes((__bridge CTRunRef) glyphRun);
@@ -1251,6 +1273,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
 #pragma mark - UIAccessibilityElement
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+
 - (BOOL)isAccessibilityElement {
     return NO;
 }
@@ -1296,6 +1319,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
                     UIAccessibilityElement *linkElement = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
                     linkElement.accessibilityTraits = UIAccessibilityTraitLink;
                     linkElement.accessibilityFrame = [self convertRect:[self boundingRectForCharacterRange:result.range] toView:self.window];
+                    linkElement.accessibilityLabel = accessibilityLabel;
 
                     if (![accessibilityLabel isEqualToString:accessibilityValue]) {
                         linkElement.accessibilityValue = accessibilityValue;

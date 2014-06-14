@@ -25,6 +25,7 @@
 		20D2D297194ADBCE003B0EC0 /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D2D295194ADBCE003B0EC0 /* FeedViewController.xib */; };
 		20D2D29D194ADC08003B0EC0 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D29B194ADC08003B0EC0 /* MoreViewController.m */; };
 		20D2D29E194ADC08003B0EC0 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D2D29C194ADC08003B0EC0 /* MoreViewController.xib */; };
+		20D2D2A1194BE016003B0EC0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D2A0194BE016003B0EC0 /* User.m */; };
 		78438D5934B344DC97BD2BDE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E04D81F0B3742F1976E3E03 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,8 @@
 		20D2D29A194ADC08003B0EC0 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		20D2D29B194ADC08003B0EC0 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		20D2D29C194ADC08003B0EC0 /* MoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreViewController.xib; sourceTree = "<group>"; };
+		20D2D29F194BE016003B0EC0 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		20D2D2A0194BE016003B0EC0 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		6E04D81F0B3742F1976E3E03 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BC866EB25D4C198B5C01B1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +138,8 @@
 				208596E7194832A900A64D50 /* AppDelegate.m */,
 				208596E9194832A900A64D50 /* Images.xcassets */,
 				208596DE194832A900A64D50 /* Supporting Files */,
+				20D2D29F194BE016003B0EC0 /* User.h */,
+				20D2D2A0194BE016003B0EC0 /* User.m */,
 			);
 			path = ios_facebook_state;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 			files = (
 				208596E8194832A900A64D50 /* AppDelegate.m in Sources */,
 				208596E4194832A900A64D50 /* main.m in Sources */,
+				20D2D2A1194BE016003B0EC0 /* User.m in Sources */,
 				20D2D296194ADBCE003B0EC0 /* FeedViewController.m in Sources */,
 				20859709194832DF00A64D50 /* LoginViewController.m in Sources */,
 				20D2D29D194ADC08003B0EC0 /* MoreViewController.m in Sources */,

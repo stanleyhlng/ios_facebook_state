@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "AVHexColor.h"
 
 @implementation AppDelegate
 
@@ -19,12 +20,35 @@
     
     LoginViewController *vc = [[LoginViewController alloc] init];
     self.window.rootViewController = vc;
+
+    [self customizeNavBarAppearance];
+    [self customizeBarButtonItemAppearance];
+
+    //UIImage *image = [[UIImage imageNamed:@"standley"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)customizeNavBarAppearance
+{
+    id navigationBarAppearance = [UINavigationBar appearance];
+    [navigationBarAppearance setTitleTextAttributes:
+     @{
+       NSForegroundColorAttributeName:[UIColor whiteColor],
+       NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0f]
+       }];
+    [navigationBarAppearance setTintColor:[AVHexColor colorWithHexString:@"#3B5998"]];
+    [navigationBarAppearance setBarTintColor:[AVHexColor colorWithHexString:@"#3B5998"]];
+}
+
+- (void)customizeBarButtonItemAppearance
+{
+    id barButtonItemAppearance = [UIBarButtonItem appearance];
+    [barButtonItemAppearance setTintColor:[UIColor whiteColor]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
