@@ -9,7 +9,7 @@
                 <outlet property="continueActivityIndicatorView" destination="rvH-Bn-dcb" id="wxK-3f-UHq"/>
                 <outlet property="helpView" destination="ajT-Q3-tip" id="Fhc-TV-MPo"/>
                 <outlet property="loadingPanelView" destination="jso-p3-kFW" id="u09-tQ-cpA"/>
-                <outlet property="loginActivityIndicatorView" destination="rvH-Bn-dcb" id="0iL-yR-XUl"/>
+                <outlet property="loginActivityIndicatorView" destination="ldq-iJ-qyk" id="URY-68-Ypg"/>
                 <outlet property="loginButton" destination="Fhn-NG-GFR" id="aZa-Gp-bo0"/>
                 <outlet property="loginPanelView" destination="ill-Gb-gvK" id="IWZ-Ul-0hf"/>
                 <outlet property="loginTextField" destination="YTn-xS-hE3" id="mgm-8B-HBf"/>
@@ -193,8 +193,8 @@
                             <attributedString key="attributedText"/>
                             <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
                         </textField>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ktp-85-mSb">
-                            <rect key="frame" x="135" y="61" width="20" height="20"/>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ldq-iJ-qyk">
+                            <rect key="frame" x="251" y="110" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                     </subviews>
