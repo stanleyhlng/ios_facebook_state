@@ -21,11 +21,13 @@
         NSDictionary *data = @{
                                @"stanley@yahoo-inc.com":@{
                                        @"name":@"Stanley Ng",
+                                       @"icon":@"icon-stanleyn",
                                        @"view_feed":@"view-feed",
                                        @"view_more":@"view-more"
                                        },
                                @"mmayer@yahoo-inc.com":@{
                                        @"name": @"Marissa Mayer",
+                                       @"icon": @"icon-marissa",
                                        @"view_feed":@"view-feed-marissa",
                                        @"view_more":@"view-more-marissa"
                                        }
@@ -41,6 +43,16 @@
 - (NSString *)getCurrent
 {
     return self.current;
+}
+
+- (NSString *)getCurrentProfileImage
+{
+    NSString *view = @"icon-stanleyn";
+    NSDictionary *data = [self.data objectForKey:self.current];
+    if (data) {
+        view = [data objectForKey:@"icon"];
+    }
+    return view;
 }
 
 - (NSString *)getCurrentFeedView

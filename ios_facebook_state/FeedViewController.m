@@ -7,6 +7,7 @@
 //
 
 #import "FeedViewController.h"
+#import "StatusViewController.h"
 #import "AVHexColor.h"
 #import "Users.h"
 
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (strong, nonatomic) Users *users;
 
+- (IBAction)onStatusButton:(id)sender;
 - (void)onSearchButton:(id)sender;
 - (void)onContactButton:(id)sender;
 - (void)callbackLoad:(id)sender;
@@ -117,6 +119,17 @@ UIScrollView *scrollView;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)onStatusButton:(id)sender
+{
+    NSLog(@"onStatusButton");
+    
+    UIViewController *vc = [[StatusViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nvc.modalTransitionStyle = UIModalTransitionStyleCoverVertical; // Rises from below
+    
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 
 - (void)onSearchButton:(id)sender

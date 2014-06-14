@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		204869A1194CD455004F7641 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2048699F194CD455004F7641 /* StatusViewController.m */; };
+		204869A2194CD455004F7641 /* StatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 204869A0194CD455004F7641 /* StatusViewController.xib */; };
 		208596D8194832A900A64D50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208596D7194832A900A64D50 /* Foundation.framework */; };
 		208596DA194832A900A64D50 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208596D9194832A900A64D50 /* CoreGraphics.framework */; };
 		208596DC194832A900A64D50 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208596DB194832A900A64D50 /* UIKit.framework */; };
@@ -26,7 +28,6 @@
 		20D2D297194ADBCE003B0EC0 /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D2D295194ADBCE003B0EC0 /* FeedViewController.xib */; };
 		20D2D29D194ADC08003B0EC0 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D29B194ADC08003B0EC0 /* MoreViewController.m */; };
 		20D2D29E194ADC08003B0EC0 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D2D29C194ADC08003B0EC0 /* MoreViewController.xib */; };
-		20D2D2A1194BE016003B0EC0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D2D2A0194BE016003B0EC0 /* User.m */; };
 		78438D5934B344DC97BD2BDE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E04D81F0B3742F1976E3E03 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2048699E194CD454004F7641 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
+		2048699F194CD455004F7641 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
+		204869A0194CD455004F7641 /* StatusViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusViewController.xib; sourceTree = "<group>"; };
 		208596D4194832A900A64D50 /* ios_facebook_state.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_facebook_state.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		208596D7194832A900A64D50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		208596D9194832A900A64D50 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -68,8 +72,6 @@
 		20D2D29A194ADC08003B0EC0 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		20D2D29B194ADC08003B0EC0 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		20D2D29C194ADC08003B0EC0 /* MoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreViewController.xib; sourceTree = "<group>"; };
-		20D2D29F194BE016003B0EC0 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		20D2D2A0194BE016003B0EC0 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		6E04D81F0B3742F1976E3E03 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BC866EB25D4C198B5C01B1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +101,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		204869A3194CD45B004F7641 /* Status View */ = {
+			isa = PBXGroup;
+			children = (
+				2048699E194CD454004F7641 /* StatusViewController.h */,
+				2048699F194CD455004F7641 /* StatusViewController.m */,
+				204869A0194CD455004F7641 /* StatusViewController.xib */,
+			);
+			name = "Status View";
+			sourceTree = "<group>";
+		};
 		208596CB194832A900A64D50 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +146,7 @@
 		208596DD194832A900A64D50 /* ios_facebook_state */ = {
 			isa = PBXGroup;
 			children = (
+				204869A3194CD45B004F7641 /* Status View */,
 				20D2D299194ADBE1003B0EC0 /* More View */,
 				20D2D298194ADBD6003B0EC0 /* Feed View */,
 				20D2D292194ADBAA003B0EC0 /* Login View */,
@@ -141,8 +154,6 @@
 				208596E7194832A900A64D50 /* AppDelegate.m */,
 				208596E9194832A900A64D50 /* Images.xcassets */,
 				208596DE194832A900A64D50 /* Supporting Files */,
-				20D2D29F194BE016003B0EC0 /* User.h */,
-				20D2D2A0194BE016003B0EC0 /* User.m */,
 				20C38C36194CC1840002B63E /* Users.h */,
 				20C38C37194CC1840002B63E /* Users.m */,
 			);
@@ -285,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				204869A2194CD455004F7641 /* StatusViewController.xib in Resources */,
 				20D2D29E194ADC08003B0EC0 /* MoreViewController.xib in Resources */,
 				208596E2194832A900A64D50 /* InfoPlist.strings in Resources */,
 				208596EA194832A900A64D50 /* Images.xcassets in Resources */,
@@ -343,8 +355,8 @@
 			files = (
 				208596E8194832A900A64D50 /* AppDelegate.m in Sources */,
 				208596E4194832A900A64D50 /* main.m in Sources */,
-				20D2D2A1194BE016003B0EC0 /* User.m in Sources */,
 				20C38C38194CC1840002B63E /* Users.m in Sources */,
+				204869A1194CD455004F7641 /* StatusViewController.m in Sources */,
 				20D2D296194ADBCE003B0EC0 /* FeedViewController.m in Sources */,
 				20859709194832DF00A64D50 /* LoginViewController.m in Sources */,
 				20D2D29D194ADC08003B0EC0 /* MoreViewController.m in Sources */,

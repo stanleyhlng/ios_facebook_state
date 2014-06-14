@@ -18,5 +18,6 @@
 - (NSString *)getCurrent;
 - (NSString *)getCurrentFeedView;
 - (NSString *)getCurrentMoreView;
+- (NSString *)getCurrentProfileImage;
 
 @end
