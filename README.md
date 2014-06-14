@@ -5,8 +5,9 @@ ios_facebook_state
 
 This is an iOS prototyping application, which implement the Facebook login flow with loading and error states.
 
-## Time spent
-12 hours spent in total
+## Walkthrough of all user stories
+
+[![image](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_facebook_state/assets/ios_facebook_state.gif)](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_facebook_state/assets/ios_facebook_state.gif)
 
 ## Completed user stories
  * Facebook login page
@@ -29,9 +30,8 @@ This is an iOS prototyping application, which implement the Facebook login flow 
   * [x] Optional: After a pull to refresh, delay for 2 seconds before ending.
   * [x] Optional: Every other time, display an error message.
 
-## Walkthrough of all user stories
-
-[![image](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_facebook_state/assets/ios_facebook_state.gif)](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_facebook_state/assets/ios_facebook_state.gif)
+## Time spent
+12 hours spent in total
 
 ## Learnings
  * Events and Delegates
