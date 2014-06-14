@@ -9,4 +9,3 @@ ios_facebook_state
 * setting color using 3rd party library AVHexColor
 
 ## Libraries
-
