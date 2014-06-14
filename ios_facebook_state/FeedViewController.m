@@ -8,11 +8,13 @@
 
 #import "FeedViewController.h"
 #import "AVHexColor.h"
+#import "Users.h"
 
 @interface FeedViewController ()
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (strong, nonatomic) Users *users;
 
 - (void)onSearchButton:(id)sender;
 - (void)onContactButton:(id)sender;
@@ -30,6 +32,9 @@ UIScrollView *scrollView;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        // Define Users object
+        self.users = [Users instance];
+        
         // Custom initialization
         self.title = @"News Feed";
     }
@@ -78,7 +83,8 @@ UIScrollView *scrollView;
     imageView = [[UIImageView alloc] init];
 
     [scrollView setHidden:YES];
-    [imageView setImage:[UIImage imageNamed:@"view-feed"]];
+    //[imageView setImage:[UIImage imageNamed:@"view-feed"]];
+    [imageView setImage:[UIImage imageNamed: [self.users getCurrentFeedView]]];
 
     //[self.view addSubview: scrollView];
     [self.view insertSubview:scrollView belowSubview:self.errorLabel];

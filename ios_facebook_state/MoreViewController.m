@@ -8,13 +8,14 @@
 
 #import "MoreViewController.h"
 #import "AVHexColor.h"
-#import "User.h"
+#import "Users.h"
 
 @interface MoreViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *navigationImageView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) UIButton *logoutButton;
+@property (strong, nonatomic) Users *users;
 
 - (void)onSearchButton:(id)sender;
 - (void)onContactButton:(id)sender;
@@ -31,9 +32,18 @@
         // Custom initialization
         self.title = @"More";
         
-        // object
-        User *user = [User sharedInstance];
-        NSLog(@"user object:%@", user.nameDict[@"stanley"]);
+        // Define Users object
+        self.users = [Users instance];
+        /*
+        NSLog(@"users object:%@", users.data[@"stanleyn@yahoo-inc.com"]);
+        NSLog(@"users.getCurrent %@", [users getCurrent]);
+        
+        users.current = @"stanleyn@yahoo-inc.com";
+        NSLog(@"%@", [users getCurrentFeedView]);
+
+        users.current = @"mmayer@yahoo-inc.com";
+        NSLog(@"%@", [users getCurrentFeedView]);
+         */
     }
     return self;
 }
@@ -79,8 +89,9 @@
     imageView = [[UIImageView alloc] init];
     
     // Add an image to the image view.
-    [imageView setImage:[UIImage imageNamed:@"view-more"]];
-
+    //[imageView setImage:[UIImage imageNamed:@"view-more"]];
+    [imageView setImage:[UIImage imageNamed: [self.users getCurrentMoreView]]];
+    
     //[imageView insertSubview:self.logoutButton aboveSubview:imageView];
     
     // Add the image view to the scroll view.

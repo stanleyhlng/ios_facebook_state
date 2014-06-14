@@ -10,6 +10,7 @@
 #import "FeedViewController.h"
 #import "MoreViewController.h"
 #import "AVHexColor.h"
+#import "Users.h"
 
 @interface LoginViewController ()
 
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loginActivityIndicatorView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *continueActivityIndicatorView;
+@property (strong, nonatomic) Users *users;
 
 - (IBAction)onTap:(id)sender;
 - (IBAction)onNotMeButton:(id)sender;
@@ -50,6 +52,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
+        // Define Users object
+        self.users = [Users instance];
         
         // view: background color
         self.view.backgroundColor = [AVHexColor colorWithHexString: @"#3B5998"];
@@ -267,6 +272,15 @@
     // validate the password
     if ([self.passwordTextField.text isEqualToString:@"password"]) {
 
+        // set current login user
+        NSString *current = self.loginTextField.text;
+        if ([current isEqualToString:@"mmayer@yahoo-inc.com"]) {
+            self.users.current = self.loginTextField.text;
+        }
+        else {
+            self.users.current = @"stanley@yahoo-inc.com";
+        }
+        
         // launch feed view controller
         [self launchFeedViewController];
 
@@ -291,6 +305,9 @@
     // activity indicator view: continue
     [self.continueActivityIndicatorView stopAnimating];
 
+    // set current login user
+    self.users.current = @"stanley@yahoo-inc.com";
+    
     // launch feed view controller
     [self launchFeedViewController];
 }
