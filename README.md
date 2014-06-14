@@ -46,4 +46,5 @@ This is an iOS prototyping application, which implement the Facebook login flow 
    * Performing selectors after delays
 
 ## Libraries
-
+ * AVHexColor 1.2.0
+ * Reveal-iOS-SDK 1.0.4
