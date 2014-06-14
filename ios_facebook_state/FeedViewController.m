@@ -15,11 +15,15 @@
 
 - (void)onSearchButton:(id)sender;
 - (void)onContactButton:(id)sender;
-- (void)callbackLoad;
+- (void)callbackLoad:(id)sender;
+- (void)refresh:(id)sender;
 
 @end
 
 @implementation FeedViewController
+
+UIRefreshControl *refreshControl;
+UIScrollView *scrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,13 +70,13 @@
     [self.loadingIndicatorView startAnimating];
     
     // Configure scroll view
-    UIScrollView *scrollView;
     UIImageView *imageView;
     NSDictionary *viewsDictionary;
     
     scrollView = [[UIScrollView alloc] init];
     imageView = [[UIImageView alloc] init];
 
+    [scrollView setHidden:YES];
     [imageView setImage:[UIImage imageNamed:@"view-feed"]];
 
     [self.view addSubview: scrollView];
@@ -89,7 +93,16 @@
     [scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|" options:0 metrics: 0 views:viewsDictionary]];
     
     // Load feed
-    [self performSelector:@selector(callbackLoad) withObject:nil afterDelay:2];
+    [self performSelector:@selector(callbackLoad:) withObject:nil afterDelay:2];
+
+    // Initialize Refresh Control
+    refreshControl = [[UIRefreshControl alloc] init];
+    
+    // Configure Refresh Control
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    
+    // Configure View Controller
+    [scrollView addSubview:refreshControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,12 +121,23 @@
     NSLog(@"onContactButton");
 }
 
-- (void)callbackLoad
+- (void)callbackLoad:(id)sender
 {
     NSLog(@"callbackLoad");
     
     // indicator view: loading
     [self.loadingIndicatorView stopAnimating];
+    
+    [refreshControl endRefreshing];
+    
+    [scrollView setHidden:NO];
+}
+
+- (void)refresh:(id)sender
+{
+    NSLog(@"Refreshing");
+    
+    [self performSelector:@selector(callbackLoad:) withObject:nil afterDelay:2];
 }
 
 @end
