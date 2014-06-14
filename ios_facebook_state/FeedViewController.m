@@ -12,6 +12,7 @@
 @interface FeedViewController ()
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 - (void)onSearchButton:(id)sender;
 - (void)onContactButton:(id)sender;
@@ -79,7 +80,8 @@ UIScrollView *scrollView;
     [scrollView setHidden:YES];
     [imageView setImage:[UIImage imageNamed:@"view-feed"]];
 
-    [self.view addSubview: scrollView];
+    //[self.view addSubview: scrollView];
+    [self.view insertSubview:scrollView belowSubview:self.errorLabel];
     
     [scrollView addSubview: imageView];
 
@@ -124,6 +126,10 @@ UIScrollView *scrollView;
 - (void)callbackLoad:(id)sender
 {
     NSLog(@"callbackLoad");
+
+    if (refreshControl.refreshing) {
+        self.errorLabel.hidden = !self.errorLabel.hidden;
+    }
     
     // indicator view: loading
     [self.loadingIndicatorView stopAnimating];
